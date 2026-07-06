@@ -67,3 +67,7 @@ body {
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border);
 }
+
+.bg-gradient-radial {
+  background-image: radial-gradient(circle, var(--tw-gradient-stops));
+}
