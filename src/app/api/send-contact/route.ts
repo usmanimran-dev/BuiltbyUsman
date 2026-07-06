@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       `,
     });
 
-    if (!ownerEmail.id) throw new Error("Failed to send owner email");
+    if (ownerEmail.error) throw new Error("Failed to send owner email");
 
     // Send confirmation to user
     const userEmail = await resend.emails.send({
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       `,
     });
 
-    if (!userEmail.id) throw new Error("Failed to send user confirmation");
+    if (userEmail.error) throw new Error("Failed to send user confirmation");
 
     return NextResponse.json({
       ok: true,
