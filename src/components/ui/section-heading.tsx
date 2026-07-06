@@ -3,28 +3,36 @@
 import { motion } from "framer-motion";
 
 interface SectionHeadingProps {
-  label: string;
+  eyebrow: string;
   title: string;
   description?: string;
+  align?: "left" | "center";
 }
 
-export function SectionHeading({ label, title, description }: SectionHeadingProps) {
+export function SectionHeading({
+  eyebrow,
+  title,
+  description,
+  align = "left",
+}: SectionHeadingProps) {
+  const alignClass = align === "center" ? "items-center text-center" : "items-start text-left";
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6 }}
-      className="mb-16 text-center"
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className={`mb-16 flex flex-col gap-5 ${alignClass}`}
     >
-      <span className="mb-4 inline-block rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wider uppercase text-indigo-400">
-        {label}
-      </span>
-      <h2 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+      <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-zinc-500">
+        <span className="h-px w-8 bg-zinc-700" />
+        {eyebrow}
+      </div>
+      <h2 className="font-display text-5xl leading-[1.05] text-white sm:text-6xl md:text-7xl">
         {title}
       </h2>
       {description && (
-        <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-400 leading-relaxed">
+        <p className="max-w-xl text-base text-zinc-400 leading-relaxed">
           {description}
         </p>
       )}

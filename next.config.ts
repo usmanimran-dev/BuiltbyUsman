@@ -1,15 +1,5 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "oxputeaplbndzolsnyto.supabase.co",
-        pathname: "/storage/v1/object/sign/**",
-      },
-    ],
-  },
-};
+const nextConfig: NextConfig = {};
 
 export default nextConfig;

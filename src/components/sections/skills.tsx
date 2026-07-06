@@ -3,91 +3,68 @@
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/section-heading";
 
-const skillCategories = [
+const groups: { label: string; items: string[] }[] = [
   {
     label: "Frontend",
-    skills: ["Angular", "Next.js", "React", "Flutter", "React Native", "Tailwind CSS"],
+    items: ["Angular", "Next.js", "React", "Flutter", "React Native"],
   },
   {
     label: "Backend",
-    skills: ["Node.js", "Express", "REST APIs", "DB2 Stored Procedures"],
+    items: ["Node.js", "Express", "REST APIs"],
   },
   {
     label: "Databases",
-    skills: ["PostgreSQL", "DB2", "Firebase", "MongoDB"],
+    items: ["PostgreSQL", "DB2", "Firebase", "Supabase"],
   },
   {
-    label: "Cloud & DevOps",
-    skills: ["AWS", "Vercel", "Docker", "CI/CD"],
+    label: "AI / LLM",
+    items: ["OpenAI API", "Claude API", "RAG workflows"],
   },
   {
-    label: "AI & Integration",
-    skills: ["OpenAI API", "Claude API", "MQTT", "Firebase Cloud Messaging"],
-  },
-  {
-    label: "Tools",
-    skills: ["Git", "Figma", "Postman", "VS Code"],
+    label: "Cloud",
+    items: ["AWS", "Docker", "CI/CD"],
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  show: { opacity: 1, scale: 1 },
-};
-
 export function Skills() {
   return (
-    <section id="skills" className="relative px-6 py-32">
-      <div className="mx-auto max-w-5xl">
+    <section id="skills" className="relative px-6 py-40">
+      <div className="mx-auto max-w-6xl">
         <SectionHeading
-          label="Skills"
-          title="My toolkit"
-          description="Technologies I use to build production systems."
+          eyebrow="Skills"
+          title="What I work with."
+          description="Tools I reach for often. The list is short on purpose."
         />
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {skillCategories.map((category, ci) => (
+        <div className="grid gap-x-12 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+          {groups.map((group, i) => (
             <motion.div
-              key={category.label}
-              initial={{ opacity: 0, y: 30 }}
+              key={group.label}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: ci * 0.1 }}
-              className="glass rounded-2xl p-6"
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{
+                duration: 0.5,
+                delay: i * 0.06,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="flex flex-col gap-4"
             >
-              <h3 className="mb-4 text-sm font-medium uppercase tracking-wider text-indigo-400">
-                {category.label}
-              </h3>
-              <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                className="flex flex-wrap gap-2"
-              >
-                {category.skills.map((skill) => (
-                  <motion.span
-                    key={skill}
-                    variants={itemVariants}
-                    whileHover={{
-                      scale: 1.05,
-                      backgroundColor: "rgba(99, 102, 241, 0.15)",
-                      borderColor: "rgba(99, 102, 241, 0.3)",
-                    }}
-                    className="cursor-default rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-zinc-300 transition-colors"
-                  >
-                    {skill}
-                  </motion.span>
+              <div className="flex items-baseline justify-between border-b border-white/5 pb-3">
+                <h3 className="text-sm font-medium text-white">
+                  {group.label}
+                </h3>
+                <span className="font-mono text-xs text-zinc-600">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+              </div>
+              <ul className="flex flex-col gap-2 text-base text-zinc-400">
+                {group.items.map((item) => (
+                  <li key={item} className="transition-colors hover:text-white">
+                    {item}
+                  </li>
                 ))}
-              </motion.div>
+              </ul>
             </motion.div>
           ))}
         </div>

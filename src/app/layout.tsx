@@ -1,41 +1,51 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Geist_Mono } from "next/font/google";
+import { Geist, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-geist-sans",
+const geist = Geist({
+  variable: "--font-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-display",
+  weight: "400",
+  style: ["normal", "italic"],
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Usman Imran — Full Stack Developer",
+  metadataBase: new URL("https://builtbyusman.com"),
+  title: "Usman Imran — Full stack developer",
   description:
-    "Full stack developer building fintech, logistics, and AI-powered systems. Based in Karachi, Pakistan.",
+    "Full stack developer building fintech, logistics, and AI-powered systems. Based in Karachi.",
   openGraph: {
-    title: "Usman Imran — Full Stack Developer",
+    title: "Usman Imran — Full stack developer",
     description:
       "Full stack developer building fintech, logistics, and AI-powered systems.",
+    url: "https://builtbyusman.com",
+    siteName: "Built by Usman",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Usman Imran — Full stack developer",
+    description:
+      "Full stack developer building fintech, logistics, and AI-powered systems.",
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geist.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#030712] text-white">
+      <body className="min-h-full flex flex-col bg-[#08090c] text-zinc-100">
         {children}
       </body>
     </html>
