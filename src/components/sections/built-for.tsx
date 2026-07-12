@@ -22,7 +22,7 @@ const wordmarks: Wordmark[] = [
     name: "Finastra",
     category: "Fintech",
     context: "Banking integration work",
-    metric: "35% API latency reduction",
+    metric: "Banking system integration work",
   },
   {
     name: "Tanzania Posts",
@@ -182,7 +182,7 @@ export function BuiltFor() {
         >
           <div className="h-px w-12 bg-white/10" />
           <p className="text-xs text-zinc-500">
-            Delivered as senior engineer at software houses serving these
+            Delivered as an engineer at the software company serving these
             organizations
           </p>
           <div className="h-px w-12 bg-white/10" />

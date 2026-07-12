@@ -38,6 +38,7 @@ export function Hero() {
   return (
     <section
       id="top"
+      aria-label="Introduction"
       className="relative overflow-hidden bg-[#F0EFEA] px-6 pt-32 pb-24 text-neutral-900"
     >
       <CornerLines position="tl" />

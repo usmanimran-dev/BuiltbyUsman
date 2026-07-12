@@ -16,7 +16,7 @@ const roles: Role[] = [
   {
     company: "Socium",
     role: "Backend Data Engineer — Trade Finance Systems",
-    period: "2024 — Present",
+    period: "Feb 2025 — Present",
     summary:
       "Built Letter of Credit and Amendments workflows while employed at Socium, for HBL and Finastra deployments.",
     bullets: [
@@ -30,7 +30,7 @@ const roles: Role[] = [
   {
     company: "iVisionGate",
     role: "Full Stack Engineer",
-    period: "2022 — 2024",
+    period: "Sep 2023 — Jan 2025",
     summary:
       "Led development of Swifpack, a digital mobility and logistics platform delivered to Tanzania Posts Corporation.",
     bullets: [

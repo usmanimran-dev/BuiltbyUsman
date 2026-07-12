@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown, ImageOff } from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 interface Project {
@@ -69,7 +70,7 @@ const projects: Project[] = [
     role:
       "Designed and built the platform end-to-end: editorial surfaces, story publishing pipeline, and an interface deliberately tuned to feel human and unhurried rather than algorithmic.",
     outcome:
-      "A production site now live at iseeyounow.org, giving the studio a credible home to publish and protect authentic voices at scale.",
+      "A production site now live at iseeyounow.org, giving the studio a credible home to publish and protect authentic voices.",
     stack: ["Next.js", "TypeScript", "Tailwind"],
     href: "https://iseeyounow.org/",
     image: "https://oxputeaplbndzolsnyto.supabase.co/storage/v1/object/sign/Usman%20Imran/Screenshot%202026-03-12%20113355.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wNmIzYmExMi1hYzlhLTQ3YTQtOTNkNS0xYTEyMzE4NTM4NTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJVc21hbiBJbXJhbi9TY3JlZW5zaG90IDIwMjYtMDMtMTIgMTEzMzU1LnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODMzMjg2NzMsImV4cCI6MTgxNDg2NDY3M30.jbiF9XnYvhNMPEij8psinu7-upwu_7UYK4khaWmGsX0",
@@ -118,6 +119,34 @@ const projects: Project[] = [
   },
 ];
 
+function ProjectImage({ src, alt }: { src: string; alt: string }) {
+  const [errored, setErrored] = useState(false);
+
+  if (errored) {
+    return (
+      <div
+        role="img"
+        aria-label={alt}
+        className="flex h-full w-full items-center justify-center bg-white/[0.03] text-zinc-600"
+      >
+        <ImageOff size={28} aria-hidden />
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      sizes="(min-width: 768px) 50vw, 100vw"
+      loading="lazy"
+      className="object-cover transition-transform duration-500 group-hover:scale-105"
+      onError={() => setErrored(true)}
+    />
+  );
+}
+
 export function Projects() {
   const [showAll, setShowAll] = useState(false);
   const displayedProjects = showAll ? projects : projects.slice(0, 4);
@@ -137,11 +166,8 @@ export function Projects() {
 
         <div className="grid gap-6 md:grid-cols-2">
           {displayedProjects.map((project, i) => (
-            <motion.a
+            <motion.article
               key={project.index}
-              href={project.href}
-              target={project.href ? "_blank" : undefined}
-              rel={project.href ? "noopener noreferrer" : undefined}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -152,71 +178,78 @@ export function Projects() {
               }}
               className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] transition-all hover:border-blue-500/30 hover:bg-white/[0.04]"
             >
-              {/* Image Section - Full width at top */}
-              {project.image && (
-                <div className="relative h-48 overflow-hidden bg-gradient-to-b from-white/[0.05] to-transparent">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                </div>
-              )}
-
-              {/* Content Section */}
-              <div className="flex flex-col gap-5 p-7">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex flex-col gap-2 flex-1">
-                    <span className="font-mono text-xs text-zinc-500">{project.index}</span>
-                    <h3 className="font-display text-3xl leading-tight text-white">
-                      {project.title}
-                    </h3>
-                    <span className="text-xs uppercase tracking-[0.2em] text-blue-400/80">
-                      {project.domain}
-                    </span>
-                  </div>
-                  {project.href && (
-                    <ArrowUpRight
-                      size={20}
-                      className="mt-1 shrink-0 text-zinc-600 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-blue-400"
+              <a
+                href={project.href}
+                target={project.href ? "_blank" : undefined}
+                rel={project.href ? "noopener noreferrer" : undefined}
+                className="flex flex-col"
+              >
+                {/* Image Section - Full width at top */}
+                {project.image && (
+                  <div className="relative h-48 overflow-hidden bg-gradient-to-b from-white/[0.05] to-transparent">
+                    <ProjectImage
+                      src={project.image}
+                      alt={`${project.title} interface — ${project.domain}`}
                     />
-                  )}
-                </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  </div>
+                )}
 
-                <dl className="flex flex-col gap-4 text-sm leading-relaxed border-t border-white/5 pt-4">
-                  <div>
-                    <dt className="mb-1.5 text-xs uppercase tracking-[0.15em] text-zinc-500 font-medium">
-                      Problem
-                    </dt>
-                    <dd className="text-zinc-300 text-sm">{project.problem}</dd>
+                {/* Content Section */}
+                <div className="flex flex-col gap-5 p-7">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex flex-col gap-2 flex-1">
+                      <span className="font-mono text-xs text-zinc-500">{project.index}</span>
+                      <h3 className="font-display text-3xl leading-tight text-white">
+                        {project.title}
+                      </h3>
+                      <span className="text-xs uppercase tracking-[0.2em] text-blue-400/80">
+                        {project.domain}
+                      </span>
+                    </div>
+                    {project.href && (
+                      <ArrowUpRight
+                        size={20}
+                        aria-hidden
+                        className="mt-1 shrink-0 text-zinc-600 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-blue-400"
+                      />
+                    )}
                   </div>
-                  <div>
-                    <dt className="mb-1.5 text-xs uppercase tracking-[0.15em] text-zinc-500 font-medium">
-                      Role
-                    </dt>
-                    <dd className="text-zinc-300 text-sm">{project.role}</dd>
-                  </div>
-                  <div>
-                    <dt className="mb-1.5 text-xs uppercase tracking-[0.15em] text-zinc-500 font-medium">
-                      Outcome
-                    </dt>
-                    <dd className="text-zinc-300 text-sm">{project.outcome}</dd>
-                  </div>
-                </dl>
 
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {project.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-md bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 text-xs text-blue-300"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                  <dl className="flex flex-col gap-4 text-sm leading-relaxed border-t border-white/5 pt-4">
+                    <div>
+                      <dt className="mb-1.5 text-xs uppercase tracking-[0.15em] text-zinc-500 font-medium">
+                        Problem
+                      </dt>
+                      <dd className="text-zinc-300 text-sm">{project.problem}</dd>
+                    </div>
+                    <div>
+                      <dt className="mb-1.5 text-xs uppercase tracking-[0.15em] text-zinc-500 font-medium">
+                        Role
+                      </dt>
+                      <dd className="text-zinc-300 text-sm">{project.role}</dd>
+                    </div>
+                    <div>
+                      <dt className="mb-1.5 text-xs uppercase tracking-[0.15em] text-zinc-500 font-medium">
+                        Outcome
+                      </dt>
+                      <dd className="text-zinc-300 text-sm">{project.outcome}</dd>
+                    </div>
+                  </dl>
+
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {project.stack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded-md bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 text-xs text-blue-300"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </motion.a>
+              </a>
+            </motion.article>
           ))}
         </div>
 

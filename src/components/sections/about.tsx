@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 const paragraphs = [
   "Full-stack engineer specializing in mission-critical systems for financial services, logistics operations, and AI-driven automation. Based in Karachi, with a track record of architecting production systems that handle real operational complexity at scale — from enterprise banking workflows to multi-tenant voice AI platforms deployed across regional markets.",
-  "My focus is on building systems that solve problems businesses haven't yet solved at the infrastructure level. Rather than optimize for feature velocity, I optimize for operational resilience: systems that degrade gracefully, fail with clarity, and maintain data integrity under concurrent load.",
+  "I build systems that keep working when things go wrong — banking workflows, logistics platforms, and AI operations that handle real load.",
   "Technical foundation spans backend architecture (Node.js, PostgreSQL, DB2 enterprise systems), real-time systems (MQTT, Firebase, WebSocket-driven applications), and AI integration (LLM pipelines, voice automation, intelligent workflow systems). Current work centers on multi-tenant architecture patterns and scaling AI operations across regional deployments.",
   "I pursue formal computer science training at DHA Suffa University while building production systems — learning that informs architecture decisions rather than replacing hands-on expertise. Invested in sustainable code practices, measurable performance gains, and systems designed for operator understanding.",
 ];

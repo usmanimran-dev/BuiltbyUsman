@@ -6,6 +6,9 @@ import { ArrowRight, Menu, X } from "lucide-react";
 
 const links = [
   { label: "Work", href: "#work" },
+  { label: "Experience", href: "#experience" },
+  { label: "Services", href: "#services" },
+  { label: "Skills", href: "#skills" },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];
@@ -40,7 +43,7 @@ export function Navbar() {
             Usman Imran
           </a>
 
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
             {links.map((link) => (
               <a
                 key={link.href}
@@ -82,7 +85,7 @@ export function Navbar() {
             transition={{ duration: 0.2 }}
             className="fixed inset-x-4 top-20 z-40 rounded-2xl border border-neutral-200 bg-white/95 p-4 backdrop-blur-xl md:hidden"
           >
-            <div className="flex flex-col">
+            <nav aria-label="Mobile" className="flex flex-col">
               {links.map((link) => (
                 <a
                   key={link.href}
@@ -93,7 +96,7 @@ export function Navbar() {
                   {link.label}
                 </a>
               ))}
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>
