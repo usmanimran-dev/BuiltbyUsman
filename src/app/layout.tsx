@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
@@ -20,10 +20,19 @@ const title = "Usman Imran — Full Stack Developer | Fintech, Logistics & AI Sy
 const description =
   "I build production systems for banking workflows, logistics platforms, and AI-powered tools. Based in Karachi. Available for projects.";
 
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://builtbyusman.com"),
   title,
   description,
+  authors: [{ name: "Usman Imran" }],
+  formatDetection: { telephone: false },
   alternates: {
     canonical: "https://builtbyusman.com",
   },
@@ -79,6 +88,34 @@ const personJsonLd = {
   ],
 };
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Usman Imran — Full Stack Developer",
+  url: "https://builtbyusman.com",
+  description:
+    "Full stack developer building fintech, logistics, and AI-powered systems",
+};
+
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Usman Imran",
+  url: "https://builtbyusman.com",
+  description:
+    "AI voice agents, full stack web platforms, and forward-deployed engineering",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Karachi",
+    addressCountry: "PK",
+  },
+  serviceType: [
+    "AI Voice Agents",
+    "Full Stack Web Development",
+    "Forward-Deployed Engineering",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -87,10 +124,34 @@ export default function RootLayout({
       lang="en"
       className={`${geist.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
+      <head>
+        <link
+          rel="preconnect"
+          href="https://fwfiauyxxewmjyihkvql.supabase.co"
+        />
+        <link
+          rel="dns-prefetch"
+          href="https://fwfiauyxxewmjyihkvql.supabase.co"
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-[#08090c] text-zinc-100">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded"
+        >
+          Skip to main content
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
         />
         {children}
       </body>

@@ -1,24 +1,60 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Navbar } from "@/components/sections/navbar";
 import { Hero } from "@/components/sections/hero";
 import { BuiltFor } from "@/components/sections/built-for";
 import { About } from "@/components/sections/about";
-import { Experience } from "@/components/sections/experience";
-import { Approach } from "@/components/sections/approach";
-import { HowIBuild } from "@/components/sections/how-i-build";
-import { Services } from "@/components/sections/services";
-import { Projects } from "@/components/sections/projects";
-import { Skills } from "@/components/sections/skills";
-import { CTA } from "@/components/sections/cta";
-import { Contact } from "@/components/sections/contact";
-import { Footer } from "@/components/sections/footer";
+
+const Experience = dynamic(() =>
+  import("@/components/sections/experience").then((mod) => ({
+    default: mod.Experience,
+  }))
+);
+const Approach = dynamic(() =>
+  import("@/components/sections/approach").then((mod) => ({
+    default: mod.Approach,
+  }))
+);
+const HowIBuild = dynamic(() =>
+  import("@/components/sections/how-i-build").then((mod) => ({
+    default: mod.HowIBuild,
+  }))
+);
+const Services = dynamic(() =>
+  import("@/components/sections/services").then((mod) => ({
+    default: mod.Services,
+  }))
+);
+const Projects = dynamic(() =>
+  import("@/components/sections/projects").then((mod) => ({
+    default: mod.Projects,
+  }))
+);
+const Skills = dynamic(() =>
+  import("@/components/sections/skills").then((mod) => ({
+    default: mod.Skills,
+  }))
+);
+const CTA = dynamic(() =>
+  import("@/components/sections/cta").then((mod) => ({ default: mod.CTA }))
+);
+const Contact = dynamic(() =>
+  import("@/components/sections/contact").then((mod) => ({
+    default: mod.Contact,
+  }))
+);
+const Footer = dynamic(() =>
+  import("@/components/sections/footer").then((mod) => ({
+    default: mod.Footer,
+  }))
+);
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="relative z-10">
+      <main id="main-content" className="relative z-10">
         <Hero />
         <BuiltFor />
         <About />
