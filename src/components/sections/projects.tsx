@@ -59,7 +59,7 @@ const projects: Project[] = [
       "Every aid rupee is now traceable from beneficiary registration to vendor redemption, with an audit log the donor and auditor can both defend.",
     stack: ["Flutter", "Node.js", "Prisma", "PostgreSQL"],
     href: "https://ngo.virtuohr.com",
-    image: "https://oxputeaplbndzolsnyto.supabase.co/storage/v1/object/sign/Usman%20Imran/Screenshot%202026-02-25%20204034.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wNmIzYmExMi1hYzlhLTQ3YTQtOTNkNS0xYTEyMzE4NTMlOTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJVc21hbiBJbXJhbi9TY3JlZW5zaG90IDIwMjYtMDItMjUgMjA0MDM0LnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODMzMjg2NTQsImV4cCI6MTgxNDg2NDY1NH0.CZ7LzmSzn3x-Xc9L1uwubMZU88Wsl6nOzIC8JjIXxwo",
+    image: "https://fwfiauyxxewmjyihkvql.supabase.co/storage/v1/object/public/project%20images/NGO%20PROJECT%20IMAGE.png",
   },
   {
     index: "04",
@@ -115,7 +115,7 @@ const projects: Project[] = [
       "A production catering platform now serving weddings and corporate events, handling premium food orders with transparent pricing, customizable menus, and reliable delivery tracking.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Payment Integration"],
     href: "https://www.bismillahcaters.com/",
-    image: "https://oxputeaplbndzolsnyto.supabase.co/storage/v1/object/sign/Usman%20Imran/Screenshot%202026-03-12%20113432.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wNmIzYmExMi1hYzlhLTQ3YTQtOTNkNS0xYTEyMzE4NTM4NTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJVc21hbiBJbXJhbi9TY3JlZW5zaG90IDIwMjYtMDMtMTIgMTEzNDMyLnBuZyIsImlhdCI6MTc3MzI5NzUxNSwiZXhwIjoxNzc1ODg5NTE1fQ.dxphjYuqdoSQ7rlWUQxOjCFqeFAMxDGy9QKoiXIFqj4",
+    image: "https://fwfiauyxxewmjyihkvql.supabase.co/storage/v1/object/public/project%20images/bismillahimage.png",
   },
 ];
 

@@ -112,9 +112,19 @@ export function HowIBuild() {
                 What I actually build
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-neutral-700">
-                My AI Project Estimator doesn't just generate a number — it classifies project complexity, structures the tech stack recommendation, and handles ambiguous or incomplete briefs without breaking. Same discipline applies to every system I ship, from banking workflows to logistics platforms.
+                My omni-agent, live in production for BYD, doesn&apos;t just answer questions — it handles multi-channel customer support across chat, voice, and WhatsApp, qualifies inbound leads, and books test drives without losing context between channels. Same discipline applies to every system I ship, from banking workflows to logistics platforms.
               </p>
             </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5, delay: 0.35, ease }}
+              className="mt-2 max-w-xl text-center text-xs leading-relaxed text-neutral-500 sm:col-span-2 sm:justify-self-center"
+            >
+              Currently extending into Java and Spring Boot to contribute to a Financial Crime Compliance product at Socium — applying the same rigor from trade finance workflows to AML and compliance systems. Still in progress, not yet shipped.
+            </motion.p>
           </div>
 
           <BubbleCluster />
