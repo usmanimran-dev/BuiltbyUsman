@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 function GithubIcon({ size = 18 }: { size?: number }) {
   return (
     <svg aria-hidden width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -45,9 +47,13 @@ export function Footer() {
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-12 md:grid-cols-[minmax(0,1fr)_auto_auto]">
           <a href="#top" className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-md bg-white text-base font-bold text-neutral-900">
-              UI
-            </span>
+            <Image
+              src="/logo-master.png"
+              alt="Usman Imran logo"
+              width={40}
+              height={40}
+              className="rounded-md"
+            />
             <span className="font-display text-xl font-semibold text-white">
               Usman Imran
             </span>
