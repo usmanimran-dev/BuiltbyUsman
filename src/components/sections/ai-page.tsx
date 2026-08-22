@@ -45,7 +45,13 @@ const industries = [
   "Retail & Distribution", "Logistics & Delivery", "Travel & Hospitality",
   "Startups & Tech Companies", "Marketing Agencies",
 ] as const;
-const models = [
+type ModelEntry = {
+  name: string;
+  url: string;
+  icon?: React.ComponentType<{ size?: number }>;
+};
+
+const models: ModelEntry[] = [
   { name: "OpenAI", url: "https://openai.com" },
   { name: "Anthropic", url: "https://www.anthropic.com" },
   { name: "Gemini", url: "https://gemini.google.com" },
@@ -70,7 +76,7 @@ const models = [
   { name: "LM Studio", url: "https://lmstudio.ai" },
   { name: "Cerebras", url: "https://www.cerebras.ai" },
   { name: "NovitaAI", url: "https://novita.ai" },
-] as const;
+];
 
 const stats = [
   ["24/7", "Always on, never stops working", Globe2],
