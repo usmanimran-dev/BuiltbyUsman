@@ -21,7 +21,7 @@ interface Project {
 const projects: Project[] = [
   {
     index: "01",
-    title: "Omni Agent",
+    title: "Loop Agent",
     domain: "AI voice · multi-tenant call operations",
     problem:
       "Small and mid-sized businesses lose deals every time an inbound call is missed, and outbound follow-up drifts across staff. Running a real 24/7 multilingual call center to close that gap isn't economical for most of them.",

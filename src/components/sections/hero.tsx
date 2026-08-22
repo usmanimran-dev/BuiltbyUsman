@@ -134,7 +134,7 @@ function DemoCard() {
             Building the system that turns every missed call into a captured lead and booked appointment.
           </p>
           <p className="mt-2 text-[11px] uppercase tracking-wider text-neutral-400">
-            Omni Agent — Multi-tenant Voice AI
+            Loop Agent — Multi-tenant Voice AI
           </p>
         </div>
 
