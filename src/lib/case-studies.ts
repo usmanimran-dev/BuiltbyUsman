@@ -365,6 +365,95 @@ export const caseStudies: CaseStudy[] = [
     ],
     relatedPost: { slug: "stored-procedures-trade-finance", label: "In Defence of Stored Procedures" },
   },
+  {
+    slug: "swifpack-logistics",
+    domain: "enterprise",
+    eyebrow: "Tanzania Posts · delivered via iVisionGate",
+    title: "Swifpack Logistics Platform",
+    challenge:
+      "A national postal operator needed live driver tracking, delivery management, and fleet oversight across mobile networks that drop out for minutes at a time.",
+    steps: [
+      ["Trip starts", "A driver accepts a booking or delivery in the Flutter app."],
+      ["Position streams live", "GPS updates flow over MQTT, surviving coverage gaps without losing the trip."],
+      ["Fleet stays visible", "Dispatchers monitor and manage the fleet from the web dashboards."],
+    ],
+    target: "Delivered — national logistics deployment",
+    tags: ["Flutter", "Node.js", "MQTT", "AWS"],
+    client: "Tanzania Posts Corporation",
+    sector: "Logistics & mobility",
+    status: "Delivered as an engineer at iVisionGate",
+    summary:
+      "A digital mobility and logistics platform for Tanzania Posts Corporation: Flutter driver and customer apps, web dashboards for fleet management, and a real-time GPS layer built to survive unreliable mobile networks. Delivered as an engineer at iVisionGate.",
+    context: [
+      "Swifpack covers ride booking, delivery tracking, and trip management for a national postal operator — which means the system has two quite different audiences at once. Drivers need something that works one-handed, in a vehicle, all day. Dispatchers need an operational picture of the whole fleet at a glance.",
+      "The defining condition was the network. Drivers were on mobile connections, moving, for a full shift. Connections did not fail cleanly; they degraded, dropped for a minute or two in a coverage gap, and came back. That is the constraint the architecture had to be organised around, and it was delivered while employed at iVisionGate rather than as an independent engagement.",
+    ],
+    constraints: [
+      {
+        label: "Connectivity is the core condition, not an edge case",
+        text: "A tracking system that assumes a stable connection is not really a tracking system for this fleet. The question was never how to stream coordinates, but what happens during the ninety seconds when you cannot.",
+      },
+      {
+        label: "A full shift on one battery",
+        text: "The driver app runs backgrounded for most of the day. A chatty protocol or aggressive polling loop that flattens the phone by mid-afternoon fails the requirement regardless of how good the tracking is.",
+      },
+      {
+        label: "Two audiences, opposite needs",
+        text: "Driver apps optimise for glanceability and low interaction cost. Fleet dashboards optimise for density and oversight. The same underlying data has to serve both without either being an afterthought.",
+      },
+      {
+        label: "Operational scale",
+        text: "This is a national postal operator's fleet, so the real-time layer has to hold up under sustained concurrent load rather than performing well in a demo with a handful of drivers.",
+      },
+    ],
+    build: [
+      {
+        heading: "Driver and customer apps",
+        paragraphs: [
+          "Both apps were built in Flutter, covering real-time ride booking, delivery tracking, and trip management. Sharing a codebase across the two audiences kept trip state modelled once rather than reimplemented per app, which matters when the definition of an in-progress trip has to agree on both sides of the transaction.",
+        ],
+      },
+      {
+        heading: "The real-time layer",
+        paragraphs: [
+          "MQTT carries the live position stream. It was chosen over a plain WebSocket connection specifically because it already answers the questions this deployment forces — quality-of-service levels per message type, persistent sessions so a driver leaving a coverage gap resumes rather than restarts, and broker-side detection when a client disconnects ungracefully.",
+          "Firebase holds the durable state the apps read on cold start — last known position and current trip status — so a dispatcher opening the dashboard sees the fleet immediately rather than an empty map waiting for the next ping. Keeping the live stream and the queryable state as separate concerns is deliberate: trying to make a message bus also serve as the database tends to produce a system that does neither job well.",
+        ],
+      },
+      {
+        heading: "Dashboards and backend",
+        paragraphs: [
+          "Corporate fleet management and operational monitoring run through Next.js and Angular web dashboards. Behind them, Node.js services handle the high-volume real-time transaction load.",
+          "The AWS infrastructure was deployed and maintained as part of the same work, which kept the performance question honest — latency is a property of the deployed system rather than of the code in isolation, and owning both ends made it possible to actually move the number.",
+        ],
+      },
+    ],
+    stack: ["Flutter", "Next.js", "Angular", "Node.js", "MQTT", "Firebase", "AWS"],
+    measures: [
+      {
+        kind: "result",
+        label: "Real-time update latency",
+        value: "~35% lower",
+        note: "Measured against the baseline the platform started from, across the live GPS update path.",
+      },
+      {
+        kind: "scope",
+        label: "Deployment",
+        value: "National",
+        note: "Delivered to Tanzania Posts Corporation, covering ride booking, delivery tracking, and fleet management.",
+      },
+      {
+        kind: "scope",
+        label: "Surfaces shipped",
+        value: "4",
+        note: "Flutter driver app, Flutter customer app, and two web dashboards for fleet management and operational monitoring.",
+      },
+    ],
+    relatedPost: {
+      slug: "mqtt-vs-websockets-gps-tracking",
+      label: "Why MQTT and Not WebSockets for Live GPS",
+    },
+  },
 ];
 
 export function getAllCaseStudies(): CaseStudy[] {

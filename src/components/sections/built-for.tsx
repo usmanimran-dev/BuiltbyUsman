@@ -33,6 +33,7 @@ const wordmarks: Wordmark[] = [
     category: "Logistics",
     context: "Swifpack logistics platform",
     metric: "Real-time GPS at scale",
+    href: "/work/swifpack-logistics",
   },
 ];
 
