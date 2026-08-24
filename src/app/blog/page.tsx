@@ -3,13 +3,15 @@ import { Navbar } from "@/components/sections/navbar";
 import { Footer } from "@/components/sections/footer";
 import { BlogListing } from "@/components/sections/blog-listing";
 import { getAllPosts } from "@/lib/blog";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Blog | Usman Imran",
   description:
     "Build logs, case-study deep-dives, and notes on AI systems, automation, and what actually ships.",
-  alternates: { canonical: "https://builtbyusman.com/blog" },
-};
+  path: "/blog",
+  imageAlt: "Blog — Usman Imran",
+});
 
 export default function BlogPage() {
   const posts = getAllPosts();
