@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     // Send email to you
     const ownerEmail = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
-      to: "info@builtbyusman.com",
+      to: "usman@builtbyusman.com",
       subject: `New contact from ${name}`,
       html: `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px;">

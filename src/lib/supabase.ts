@@ -49,7 +49,7 @@ export async function submitContact(
     return {
       ok: false,
       error:
-        "Failed to send message. Please email info@builtbyusman.com directly.",
+        "Failed to send message. Please email usman@builtbyusman.com directly.",
     };
   }
 }
