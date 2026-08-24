@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -9,6 +10,8 @@ interface Wordmark {
   context: string;
   metric: string;
   category: string;
+  /** Set when a full case study exists for this engagement. */
+  href?: string;
 }
 
 const wordmarks: Wordmark[] = [
@@ -17,6 +20,7 @@ const wordmarks: Wordmark[] = [
     category: "Banking",
     context: "Trade finance systems",
     metric: "25+ stored procedures",
+    href: "/work/hbl-trade-finance",
   },
   {
     name: "Finastra",
@@ -127,6 +131,14 @@ export function BuiltFor() {
               {/* Corner accent */}
               <div className="absolute right-0 top-0 h-24 w-24 bg-gradient-radial from-amber-400/[0.08] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
+              {/* Covers the card so the whole tile is clickable, without
+                  nesting the motion wrapper inside an anchor. */}
+              {wm.href && (
+                <Link href={wm.href} className="absolute inset-0 z-10">
+                  <span className="sr-only">{wm.name} case study</span>
+                </Link>
+              )}
+
               <div className="relative">
                 {/* Category label */}
                 <div className="mb-8 flex items-center gap-2">
@@ -166,6 +178,21 @@ export function BuiltFor() {
                       {wm.metric}
                     </span>
                   </div>
+
+                  {wm.href && (
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-amber-300/90 transition-all group-hover:gap-2.5">
+                      Read case study
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+                        <path
+                          d="M5 12h14M12 5l7 7-7 7"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  )}
                 </div>
               </div>
             </motion.div>

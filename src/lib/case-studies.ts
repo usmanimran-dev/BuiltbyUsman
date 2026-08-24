@@ -1,5 +1,11 @@
 export type CaseStudy = {
   slug: string;
+  /**
+   * Which surface the study belongs to. `/ai` renders only "ai" studies so the
+   * page stays topically focused; enterprise work is surfaced from the
+   * homepage instead.
+   */
+  domain: "ai" | "enterprise";
   /** Card fields — rendered in the #case-studies grid on /ai. */
   eyebrow: string;
   title: string;
@@ -20,13 +26,14 @@ export type CaseStudy = {
    * Kept deliberately separate from delivered results. `kind` drives how each
    * figure is labelled in the UI so a target never reads as an outcome.
    */
-  measures: { kind: "target" | "scope" | "status"; label: string; value: string; note: string }[];
+  measures: { kind: "result" | "target" | "scope" | "status"; label: string; value: string; note: string }[];
   relatedPost?: { slug: string; label: string };
 };
 
 export const caseStudies: CaseStudy[] = [
   {
     slug: "byd-automotive-ai",
+    domain: "ai",
     eyebrow: "BYD · current implementation",
     title: "Automotive AI Operations",
     challenge:
@@ -108,6 +115,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "aga-khan-healthcare-ai",
+    domain: "ai",
     eyebrow: "Aga Khan · current implementation",
     title: "Healthcare AI Workflows",
     challenge:
@@ -181,6 +189,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "loop-agent",
+    domain: "ai",
     eyebrow: "Internal product · in development",
     title: "Loop Agent",
     challenge:
@@ -253,6 +262,108 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
     relatedPost: { slug: "building-loop-agent", label: "Building Loop Agent: One Worker, Every Channel" },
+  },
+  {
+    slug: "hbl-trade-finance",
+    domain: "enterprise",
+    eyebrow: "HBL · delivered via Socium",
+    title: "Trade Finance Systems",
+    challenge:
+      "Letter of Credit and Amendments workflows had to run across Finastra's trade finance and compliance products while keeping documents, screening, and transaction state consistent.",
+    steps: [
+      ["Instrument raised", "A Letter of Credit or amendment enters the workflow with its terms and parties."],
+      ["Screened and documented", "Compliance screening runs and supporting documents are captured against the transaction."],
+      ["State stays consistent", "Every consuming system reads the same instrument state through one contract."],
+    ],
+    target: "Delivered — enterprise banking deployment",
+    tags: ["DB2", "Trade Finance", "FTI / FCC integration", "EDMS"],
+    client: "HBL",
+    sector: "Banking — trade finance",
+    status: "Delivered as an engineer at Socium",
+    summary:
+      "Letter of Credit and Amendments workflows on DB2, integrated with Finastra's Trade Innovation and Financial Crime Compliance products, plus an EDMS for the documents trade finance runs on. Delivered as an engineer at Socium.",
+    context: [
+      "Trade finance is document-heavy and rule-bound in a way most software domains are not. A Letter of Credit is a bank's conditional promise to pay against documents that comply exactly with stated terms — and an amendment changes those terms while the instrument is still live. Getting the data layer right is not a matter of storing a record; it is a matter of several systems agreeing, continuously, on what an instrument currently says.",
+      "The work sat at that data layer: DB2 underneath, Java middleware above, Finastra products alongside, and an enterprise bank's release process around all of it. This was delivered while employed at Socium, the software company serving the deployment, rather than as an independent engagement with HBL.",
+    ],
+    constraints: [
+      {
+        label: "The database is the integration point",
+        text: "This was not one application with a private database. Java middleware and other consumers read the same instrument state, which meant logic implemented per-consumer would drift — and in trade finance, two systems disagreeing about the state of an instrument is a material problem, not a bug to fix next sprint.",
+      },
+      {
+        label: "Screening is blocking, not advisory",
+        text: "Financial crime compliance screening is a regulatory requirement, not a feature. A transaction cannot simply proceed while screening resolves in the background, so the workflow has to model a blocking step honestly rather than treating clearance as an afterthought.",
+      },
+      {
+        label: "Documents are the product",
+        text: "In trade finance the documents are what is actually being examined — invoices, transport documents, certificates. Any system handling these instruments has to keep documents reliably attached to the transaction they belong to, and retrievable long after the transaction closes.",
+      },
+      {
+        label: "Enterprise release cadence",
+        text: "Changes ship through a bank's release process with a DBA team and audit expectations attached. That constrains not just how fast you move but what kind of solution survives review.",
+      },
+    ],
+    build: [
+      {
+        heading: "LC and Amendments workflows",
+        paragraphs: [
+          "The core of the work was 25+ DB2 stored procedures supporting Letter of Credit and Amendments workflows. Putting that logic in the database was a deliberate choice rather than a legacy inheritance: with multiple consumers reading the same instrument, the logic lives once next to the data instead of being reimplemented per consumer and drifting apart.",
+          "Performance work concentrated on optimising multi-table joins and query execution plans. An amendment touches a lot of tables, and the gain was available precisely because the logic was close enough to the data to be tuned as a unit.",
+        ],
+      },
+      {
+        heading: "FTI and FCC product integration",
+        paragraphs: [
+          "The workflows had to operate against Finastra's trade finance stack rather than in isolation — Trade Innovation (FTI) for the trade finance processing itself, and Financial Crime Compliance (FCC) for the sanctions and financial crime screening that trade transactions are subject to.",
+          "Integration work of this kind is mostly contract work in the unglamorous sense: agreeing precisely what each side sends, what it means, and what happens when a response is anything other than the happy path. Screening in particular has to be modelled as a real state in the workflow — cleared, blocked, or pending review — rather than a boolean the workflow can shrug at.",
+        ],
+      },
+      {
+        heading: "EDMS for trade finance documents",
+        paragraphs: [
+          "Alongside the workflows, an Electronic Document Management System was built for the trade finance system — the layer that holds the documents an instrument is examined against and keeps them associated with the right transaction.",
+          "The requirement that shapes an EDMS in this setting is retrieval rather than storage. Documents have to be findable against the instrument they belong to, by people who may be looking months later during a dispute or an audit, which makes the indexing and the association model the parts that matter most.",
+        ],
+      },
+      {
+        heading: "Making the boundary explicit",
+        paragraphs: [
+          "Database schemas were mapped to REST API responses and Java middleware contracts so downstream systems received clean, structured data rather than raw table shapes. Integration documentation and data-mapping sheets were maintained alongside the code.",
+          "That documentation is the part I would insist on again. Stored procedures earn a reputation as an undocumented layer only one person understands, and the only thing that prevents it is treating the boundary as a written contract. It measurably reduced schema-mismatch errors during releases.",
+        ],
+      },
+    ],
+    stack: [
+      "DB2",
+      "Stored Procedures",
+      "Finastra Trade Innovation (FTI)",
+      "Finastra Financial Crime Compliance (FCC)",
+      "EDMS",
+      "REST APIs",
+      "Java middleware",
+    ],
+    measures: [
+      {
+        kind: "result",
+        label: "Average API response time",
+        value: "~35% faster",
+        note: "Achieved through query execution plan and multi-table join optimisation on the LC and Amendments workflows.",
+      },
+      {
+        kind: "scope",
+        label: "DB2 stored procedures",
+        value: "25+",
+        note: "Supporting Letter of Credit and Amendments workflows across enterprise banking systems.",
+      },
+      {
+        kind: "result",
+        label: "Schema-mismatch errors at release",
+        value: "Reduced",
+        note: "Through maintained integration documentation and data-mapping sheets. Deliberately not given a percentage — the improvement was real but was not measured as a single figure.",
+      },
+    ],
+    relatedPost: { slug: "stored-procedures-trade-finance", label: "In Defence of Stored Procedures" },
   },
 ];
 

@@ -9,12 +9,14 @@ import { openCalModal } from "@/lib/cal";
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const measureStyles: Record<CaseStudy["measures"][number]["kind"], string> = {
+  result: "border-emerald-300/25 bg-emerald-300/[.06]",
   target: "border-orange-300/25 bg-orange-300/[.07]",
   scope: "border-white/10 bg-white/[.03]",
   status: "border-white/10 bg-white/[.03]",
 };
 
 const measureLabels: Record<CaseStudy["measures"][number]["kind"], string> = {
+  result: "Result",
   target: "Target",
   scope: "Scope",
   status: "Status",
