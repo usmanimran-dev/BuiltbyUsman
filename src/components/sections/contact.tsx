@@ -60,11 +60,11 @@ export function Contact() {
 
           <div className="flex flex-col gap-4 text-sm">
             <a
-              href="mailto:info@builtbyusman.com"
+              href="mailto:usman@builtbyusman.com"
               className="group flex items-center gap-3 text-zinc-400 transition-colors hover:text-white"
             >
               <Mail size={16} className="text-blue-400" />
-              <span>info@builtbyusman.com</span>
+              <span>usman@builtbyusman.com</span>
               <ArrowRight
                 size={14}
                 className="opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100"
