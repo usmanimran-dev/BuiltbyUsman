@@ -26,7 +26,7 @@ function getNavConfig(pathname: string): NavConfig {
       links: [
         { label: "Services", href: "#what-i-build" },
         { label: "How it works", href: "#how-it-works" },
-        { label: "Case studies", href: "#case-studies" },
+        { label: "Case studies", href: "/work" },
         { label: "FAQ", href: "#faq" },
         { label: "Blog", href: "/blog" },
       ],
@@ -40,6 +40,7 @@ function getNavConfig(pathname: string): NavConfig {
       dark: false,
       links: [
         { label: "Work", href: "#work" },
+        { label: "Case studies", href: "/work" },
         { label: "Experience", href: "#experience" },
         { label: "Services", href: "#services" },
         { label: "About", href: "#about" },
@@ -57,6 +58,7 @@ function getNavConfig(pathname: string): NavConfig {
     dark: true,
     links: [
       { label: "Work", href: "/#work" },
+      { label: "Case studies", href: "/work" },
       { label: "Experience", href: "/#experience" },
       { label: "Services", href: "/#services" },
       { label: "About", href: "/#about" },

@@ -14,19 +14,14 @@ import { Footer } from "@/components/sections/footer";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { openCalModal } from "@/lib/cal";
 import { caseStudies } from "@/lib/case-studies";
+import { services } from "@/lib/services";
 
 // /ai stays AI-only; enterprise work is surfaced from the homepage instead.
 const aiCaseStudies = caseStudies.filter((study) => study.domain === "ai");
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-const services = [
-  ["Workflow Automation & AI Integration", "Automate your business operations to scale your output not your costs."],
-  ["AI Chatbot & Conversation Systems", "Instant response system across multiple communication channels to answer every customer."],
-  ["Digital FTEs (AI Employees)", "A full-time AI worker at 4x less cost — 24/7 a week, zero sick days."],
-  ["Domain Specific AI Products", "Custom-fit AI solutions designed for your exact industry needs to fulfill your requirements."],
-  ["Mobile & Web Development", "We develop modern, AI-powered apps and websites built to convert and scale."],
-] as const;
+
 
 const capabilities = [
   ["24/7 Availability", Globe2], ["Voice Conversations", AudioLines], ["Multi-language Support", MessageCircleMore],
@@ -35,13 +30,19 @@ const capabilities = [
   ["Integrations", PlugZap], ["Human Handoff", Headphones], ["Custom Workflows", Workflow],
 ] as const;
 
+/**
+ * Structural differences only. Earlier revisions carried invented figures
+ * (cost per task, consistency percentages) that no source backed up and that
+ * contradicted the FAQ on this same page. Every number here comes from copy
+ * already published on the site.
+ */
 const fteComparison = [
-  ["Availability", "40hrs/week", "24/7"],
-  ["Monthly Cost", "$4,000+", "$300+"],
-  ["Ready In", "3–6 months", "Instant"],
-  ["Consistency", "~80%", "95%+"],
-  ["Scaling", "Hire more", "Quick"],
-  ["Cost / Task", "$30–$60", "$3–$6"],
+  ["Availability", "~40 hrs/week", "Around the clock"],
+  ["Time to productive", "3–6 months to hire and onboard", "2–4 weeks to build and hand over"],
+  ["Consistency", "Varies with workload and fatigue", "Call 500 handled like call 1"],
+  ["Scaling", "Hire and train again", "Change the configuration"],
+  ["Judgement", "Broad — adapts to the unfamiliar", "Narrow — one scoped workflow"],
+  ["Cost", "Salary, benefits, overhead", "Fixed monthly rate, scoped per build"],
 ] as const;
 
 const industries = [
@@ -84,10 +85,10 @@ const models: ModelEntry[] = [
 ];
 
 const stats = [
-  ["24/7", "Always on, never stops working", Globe2],
-  ["4x Less", "Cost of a comparable full-time hire", CircleGauge],
-  ["Instant", "Scale output without adding headcount", ChartNoAxesCombined],
-  ["Zero Drift", "Same output quality, every single time", Check],
+  ["24/7", "Runs outside business hours, not only during them", Globe2],
+  ["2–4 weeks", "Typical build and handover for a Digital FTE", CalendarCheck],
+  ["One workflow", "Scoped like a role, not a general assistant", UserRoundCheck],
+  ["Human handoff", "Built in for anything ambiguous or sensitive", Headphones],
 ] as const;
 
 const taglines = [
@@ -244,7 +245,7 @@ export function AIPage() {
         <Reveal delay={.36} className="relative mx-auto mt-14 max-w-6xl border-t border-neutral-300/80 pt-6"><p className="text-center text-[11px] font-medium uppercase tracking-[.18em] text-neutral-500">Built to work with your existing systems</p><div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2">{connectedSystems.map((system) => <span key={system} className="text-sm font-medium text-neutral-600">{system}</span>)}</div></Reveal>
       </section>
 
-      <section id="what-i-build" className="relative bg-[#08090c] px-6 py-28 sm:py-40"><div className="mx-auto max-w-6xl"><SectionHeading eyebrow="Services" title="Built to scale your business." /><div className="divide-y divide-white/10 border-y border-white/10">{services.map(([title, description], index) => <Reveal key={title} delay={index * .06}><a href="#ai-contact" className="group grid items-center gap-3 py-8 sm:grid-cols-[3rem_1fr_auto] sm:gap-8"><span className="font-display text-2xl text-zinc-600">0{index + 1}</span><div><h3 className="font-display text-2xl text-white transition group-hover:text-orange-300 sm:text-3xl">{title}</h3><p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-400">{description}</p></div><span className="inline-flex items-center gap-2 text-sm font-medium text-orange-300 transition group-hover:gap-3">Learn More <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" /></span></a></Reveal>)}</div></div></section>
+      <section id="what-i-build" className="relative bg-[#08090c] px-6 py-28 sm:py-40"><div className="mx-auto max-w-6xl"><SectionHeading eyebrow="Services" title="Built to scale your business." /><div className="divide-y divide-white/10 border-y border-white/10">{services.map((service, index) => <Reveal key={service.slug} delay={index * .06}><Link href={`/ai/${service.slug}`} className="group grid items-center gap-3 py-8 sm:grid-cols-[3rem_1fr_auto] sm:gap-8"><span className="font-display text-2xl text-zinc-600">0{index + 1}</span><div><h3 className="font-display text-2xl text-white transition group-hover:text-orange-300 sm:text-3xl">{service.title}</h3><p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-400">{service.listDescription}</p></div><span className="inline-flex items-center gap-2 text-sm font-medium text-orange-300 transition group-hover:gap-3">Learn More <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" /></span></Link></Reveal>)}</div></div></section>
 
       <section id="case-studies" className="bg-black px-6 py-28 sm:py-40"><div className="mx-auto max-w-6xl"><SectionHeading eyebrow="Current implementations & case studies" title="Systems built for the work that cannot wait." description="Current work is described by the capabilities being implemented, not as completed deployment claims." /><div className="mb-8 flex flex-wrap items-center gap-3 border-y border-white/10 py-5"><span className="mr-2 text-[11px] uppercase tracking-[.18em] text-zinc-500">Currently working with</span><span className="rounded-full border border-white/10 bg-white/[.035] px-4 py-2 font-display text-lg text-white">BYD</span><span className="rounded-full border border-white/10 bg-white/[.035] px-4 py-2 font-display text-lg text-white">Aga Khan</span></div><div className="grid gap-5 lg:grid-cols-3">{aiCaseStudies.map((study, index) => <Reveal key={study.title} delay={index * .08}><Link href={`/work/${study.slug}`} className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/60 p-7 transition hover:border-white/25"><div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-300/70 to-transparent" /><p className="text-xs uppercase tracking-[.16em] text-orange-300">{study.eyebrow}</p><h3 className="mt-6 font-display text-3xl text-white">{study.title}</h3>
 

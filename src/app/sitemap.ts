@@ -1,11 +1,13 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
 import { getAllCaseStudies } from "@/lib/case-studies";
+import { getAllServices } from "@/lib/services";
 import { SITE_URL } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
   const studies = getAllCaseStudies();
+  const services = getAllServices();
 
   return [
     {
@@ -19,6 +21,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
+    },
+    ...services.map((service) => ({
+      url: `${SITE_URL}/ai/${service.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.85,
+    })),
+    {
+      url: `${SITE_URL}/work`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     ...studies.map((study) => ({
       url: `${SITE_URL}/work/${study.slug}`,

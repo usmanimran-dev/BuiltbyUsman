@@ -58,7 +58,7 @@ export function CaseStudyView({ study }: { study: CaseStudy }) {
 
       <div className="relative mx-auto max-w-3xl">
         <Link
-          href="/ai#case-studies"
+          href="/work"
           className="inline-flex items-center gap-2 text-sm text-zinc-500 transition hover:text-white"
         >
           <ArrowLeft size={14} /> All case studies
