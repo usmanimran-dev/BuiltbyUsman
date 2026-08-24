@@ -8,10 +8,12 @@ import {
   Headphones, Infinity as InfinityIcon, MessageCircleMore, Pause, PhoneCall,
   PlugZap, Send, Sparkles, UserRoundCheck, Workflow, X,
 } from "lucide-react";
+import Link from "next/link";
 import { Navbar } from "@/components/sections/navbar";
 import { Footer } from "@/components/sections/footer";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { openCalModal } from "@/lib/cal";
+import { caseStudies } from "@/lib/case-studies";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -103,45 +105,6 @@ const workflow = [
   ["Notifications", "Keeps customers and teams informed at the right moment.", Send],
   ["Analytics Dashboard", "Turns every interaction into a clearer operating picture.", ChartNoAxesCombined],
 ] as const;
-
-const caseStudies = [
-  {
-    eyebrow: "BYD · current implementation",
-    title: "Automotive AI Operations",
-    challenge: "BYD dealerships were missing inbound calls during peak hours, and slow follow-up meant test-drive leads went cold before anyone called back.",
-    steps: [
-      ["Call comes in", "Inbound call or WhatsApp message reaches the AI receptionist."],
-      ["Lead qualified", "Intent is captured and the lead is qualified in real time."],
-      ["Test drive booked", "Availability is checked and the appointment is confirmed."],
-    ],
-    target: "Target: 90%+ resolution without human handoff",
-    tags: ["AI receptionist", "Test-drive booking", "Lead qualification"],
-  },
-  {
-    eyebrow: "Aga Khan · current implementation",
-    title: "Healthcare AI Workflows",
-    challenge: "Patient inquiries and appointment requests were routed manually, creating delays for both patients and administrative staff.",
-    steps: [
-      ["Inquiry received", "Patient calls or messages with a question or request."],
-      ["Intent routed", "Request is classified and sent to the right department."],
-      ["Handoff when needed", "Clinical or administrative staff step in for anything sensitive."],
-    ],
-    target: "In progress — outcomes being defined with clinical teams",
-    tags: ["Patient inquiries", "Appointment routing", "Human handoff"],
-  },
-  {
-    eyebrow: "Internal product · in development",
-    title: "Loop Agent",
-    challenge: "Businesses need one AI worker that holds context across voice, chat, and follow-up — not a different disconnected tool for every channel.",
-    steps: [
-      ["Customer reaches out", "Any channel — call, chat, or WhatsApp — starts the same thread."],
-      ["Context stays in the loop", "CRM, calendar, and history stay in sync as the conversation moves."],
-      ["Nothing drops", "Follow-up, booking, and handoff all draw from the same context."],
-    ],
-    target: "In development — one agent, every channel",
-    tags: ["Multi-agent AI", "Voice", "Automation"],
-  },
-];
 
 const faqs = [
   ["What is a Digital FTE?", "A Digital FTE is an AI-driven role I build for your business — it works around the clock on a defined set of tasks, the same way a specialist employee would, without sick days, ramp-up time, or turnover."],
@@ -280,6 +243,18 @@ export function AIPage() {
 
       <section id="what-i-build" className="relative bg-[#08090c] px-6 py-28 sm:py-40"><div className="mx-auto max-w-6xl"><SectionHeading eyebrow="Services" title="Built to scale your business." /><div className="divide-y divide-white/10 border-y border-white/10">{services.map(([title, description], index) => <Reveal key={title} delay={index * .06}><a href="#ai-contact" className="group grid items-center gap-3 py-8 sm:grid-cols-[3rem_1fr_auto] sm:gap-8"><span className="font-display text-2xl text-zinc-600">0{index + 1}</span><div><h3 className="font-display text-2xl text-white transition group-hover:text-orange-300 sm:text-3xl">{title}</h3><p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-400">{description}</p></div><span className="inline-flex items-center gap-2 text-sm font-medium text-orange-300 transition group-hover:gap-3">Learn More <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" /></span></a></Reveal>)}</div></div></section>
 
+      <section id="case-studies" className="bg-black px-6 py-28 sm:py-40"><div className="mx-auto max-w-6xl"><SectionHeading eyebrow="Current implementations & case studies" title="Systems built for the work that cannot wait." description="Current work is described by the capabilities being implemented, not as completed deployment claims." /><div className="mb-8 flex flex-wrap items-center gap-3 border-y border-white/10 py-5"><span className="mr-2 text-[11px] uppercase tracking-[.18em] text-zinc-500">Currently working with</span><span className="rounded-full border border-white/10 bg-white/[.035] px-4 py-2 font-display text-lg text-white">BYD</span><span className="rounded-full border border-white/10 bg-white/[.035] px-4 py-2 font-display text-lg text-white">Aga Khan</span></div><div className="grid gap-5 lg:grid-cols-3">{caseStudies.map((study, index) => <Reveal key={study.title} delay={index * .08}><Link href={`/work/${study.slug}`} className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/60 p-7 transition hover:border-white/25"><div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-300/70 to-transparent" /><p className="text-xs uppercase tracking-[.16em] text-orange-300">{study.eyebrow}</p><h3 className="mt-6 font-display text-3xl text-white">{study.title}</h3>
+
+<p className="mt-5 text-[10px] uppercase tracking-[.14em] text-zinc-600">The challenge</p><p className="mt-2 text-sm leading-relaxed text-zinc-400">{study.challenge}</p>
+
+<p className="mt-6 text-[10px] uppercase tracking-[.14em] text-zinc-600">The system</p><div className="mt-3 space-y-3">{study.steps.map(([label, text], i) => <div key={label} className="flex gap-3"><span className="mt-0.5 shrink-0 font-display text-sm text-orange-300/70">0{i + 1}</span><div><p className="text-sm font-medium text-white">{label}</p><p className="text-xs leading-relaxed text-zinc-500">{text}</p></div></div>)}</div>
+
+<div className="mt-6 rounded-lg border border-orange-300/20 bg-orange-300/10 px-3 py-2 text-xs text-orange-200">{study.target}</div>
+
+<div className="mt-6 flex flex-1 flex-wrap content-start gap-2">{study.tags.map(tag => <span key={tag} className="rounded-full border border-white/10 px-2.5 py-1 text-xs text-zinc-500">{tag}</span>)}</div>
+
+<span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-orange-300 transition group-hover:gap-3">Read the case study <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" /></span></Link></Reveal>)}</div></div></section>
+
       <section id="about-ai" className="bg-[#08090c] px-6 py-28 sm:py-40"><div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[.85fr_1.15fr] lg:items-center"><Reveal><p className="text-xs uppercase tracking-[.2em] text-zinc-500">About</p><h2 className="mt-5 font-display text-5xl leading-[1.05] text-white sm:text-6xl">I Build. I Don&apos;t Just Consult.</h2></Reveal><Reveal delay={.12} className="space-y-5 text-base leading-relaxed text-zinc-400"><p>I started building production AI and automation systems as the tooling matured — not as a side experiment, but as the core of how I ship software for banking, logistics, and now AI-driven operations.</p><p>Every engagement ends the same way: a deployed, working system, not a slide deck. I design the workflow, build the integration, and hand over something your team can run on day one.</p><a href="#ai-contact" className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-neutral-900 transition hover:-translate-y-0.5 hover:bg-zinc-200">Get In Touch <ArrowRight size={15} /></a></Reveal></div></section>
 
       <section id="stats" className="border-y border-white/10 bg-black px-6 py-16"><div className="mx-auto grid max-w-6xl gap-8 sm:grid-cols-2 lg:grid-cols-4">{stats.map(([value, label, Icon], i) => <Reveal key={label} delay={i * .06} className="flex flex-col items-start gap-3"><Icon size={20} className="text-orange-300" /><span className="font-display text-4xl text-white">{value}</span><span className="text-sm text-zinc-400">{label}</span></Reveal>)}</div></section>
@@ -293,18 +268,6 @@ export function AIPage() {
       <section id="industries" className="overflow-hidden bg-[#F0EFEA] py-28 text-neutral-900 sm:py-40"><div className="mx-auto max-w-6xl px-6"><div className="mb-16 max-w-2xl"><p className="text-xs uppercase tracking-[.2em] text-neutral-500">Who we serve</p><h2 className="mt-5 font-display text-5xl leading-[1.05] sm:text-6xl">Industries powered by automation.</h2></div></div><div className="space-y-4"><IndustriesRow items={industries.slice(0, 6)} duration={32} /><IndustriesRow items={industries.slice(6)} reverse duration={36} /></div><div className="mx-auto mt-14 max-w-6xl px-6 text-center"><a href="#ai-contact" className="inline-flex items-center gap-2 text-sm font-medium text-neutral-700 transition hover:text-neutral-900">Don&apos;t see your industry? I build custom. <ArrowRight size={15} /></a></div></section>
 
       <section id="technology" className="bg-[#08090c] px-6 py-28 sm:py-40"><div className="mx-auto max-w-6xl"><SectionHeading eyebrow="Technology stack" title="Model-agnostic by design." description="We build your AI systems on whichever model fits the job — not just the most popular one. Best model for the task, every time." align="center" /><div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">{visibleModels.map(({ name, icon, url }, i) => <ModelCard key={name} name={name} icon={icon} url={url} index={i} />)}</div><div className="mt-10 flex justify-center"><button onClick={() => setShowAllModels((v) => !v)} className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-zinc-300 transition hover:border-orange-300/40 hover:text-orange-300">{showAllModels ? "See Less" : "See More"} <ChevronDown size={15} className={`transition-transform ${showAllModels ? "rotate-180" : ""}`} /></button></div></div></section>
-
-      <section id="case-studies" className="bg-black px-6 py-28 sm:py-40"><div className="mx-auto max-w-6xl"><SectionHeading eyebrow="Current implementations & case studies" title="Systems built for the work that cannot wait." description="Current work is described by the capabilities being implemented, not as completed deployment claims." /><div className="mb-8 flex flex-wrap items-center gap-3 border-y border-white/10 py-5"><span className="mr-2 text-[11px] uppercase tracking-[.18em] text-zinc-500">Currently working with</span><span className="rounded-full border border-white/10 bg-white/[.035] px-4 py-2 font-display text-lg text-white">BYD</span><span className="rounded-full border border-white/10 bg-white/[.035] px-4 py-2 font-display text-lg text-white">Aga Khan</span></div><div className="grid gap-5 lg:grid-cols-3">{caseStudies.map((study, index) => <Reveal key={study.title} delay={index * .08}><article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/60 p-7"><div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-300/70 to-transparent" /><p className="text-xs uppercase tracking-[.16em] text-orange-300">{study.eyebrow}</p><h3 className="mt-6 font-display text-3xl text-white">{study.title}</h3>
-
-<p className="mt-5 text-[10px] uppercase tracking-[.14em] text-zinc-600">The challenge</p><p className="mt-2 text-sm leading-relaxed text-zinc-400">{study.challenge}</p>
-
-<p className="mt-6 text-[10px] uppercase tracking-[.14em] text-zinc-600">The system</p><div className="mt-3 space-y-3">{study.steps.map(([label, text], i) => <div key={label} className="flex gap-3"><span className="mt-0.5 shrink-0 font-display text-sm text-orange-300/70">0{i + 1}</span><div><p className="text-sm font-medium text-white">{label}</p><p className="text-xs leading-relaxed text-zinc-500">{text}</p></div></div>)}</div>
-
-<div className="mt-6 rounded-lg border border-orange-300/20 bg-orange-300/10 px-3 py-2 text-xs text-orange-200">{study.target}</div>
-
-<div className="mt-6 flex flex-1 flex-wrap content-start gap-2">{study.tags.map(tag => <span key={tag} className="rounded-full border border-white/10 px-2.5 py-1 text-xs text-zinc-500">{tag}</span>)}</div>
-
-<a href="#ai-contact" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-orange-300 transition group-hover:gap-3">Discuss this build <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" /></a></article></Reveal>)}</div></div></section>
 
       <section id="why-me" className="bg-[#08090c] px-6 py-28 sm:py-40"><div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[.8fr_1.2fr]"><div><p className="text-xs uppercase tracking-[.2em] text-zinc-500">Why work with me</p><h2 className="mt-5 font-display text-5xl leading-[1.05] text-white sm:text-6xl">The polish of a product team, with engineering underneath.</h2></div><div className="grid gap-x-8 gap-y-5 sm:grid-cols-2">{reasons.map((reason, i) => <Reveal key={reason} delay={i * .04}><div className="flex gap-3 border-b border-white/10 pb-5 text-sm text-zinc-300"><Check size={17} className="shrink-0 text-orange-300" />{reason}</div></Reveal>)}</div></div></section>
 
