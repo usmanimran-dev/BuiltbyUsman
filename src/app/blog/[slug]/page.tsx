@@ -4,7 +4,8 @@ import { Navbar } from "@/components/sections/navbar";
 import { Footer } from "@/components/sections/footer";
 import { BlogPostView } from "@/components/sections/blog-post";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
-import { OG_IMAGE, SITE_URL, pageMetadata } from "@/lib/seo";
+import { SITE_URL, pageMetadata } from "@/lib/seo";
+import { generateBlogOG } from "@/lib/og-images";
 
 export async function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
@@ -19,7 +20,7 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post) return {};
 
-  return pageMetadata({
+  const metadata = pageMetadata({
     title: `${post.title} | Usman Imran`,
     description: post.excerpt,
     path: `/blog/${post.slug}`,
@@ -27,6 +28,23 @@ export async function generateMetadata({
     publishedTime: post.date,
     imageAlt: post.title,
   });
+
+  // Override with blog-post-specific OG image
+  if (metadata.openGraph) {
+    metadata.openGraph.images = [
+      {
+        url: generateBlogOG(post.title, post.date),
+        width: 1200,
+        height: 630,
+        alt: post.title,
+      },
+    ];
+  }
+  if (metadata.twitter) {
+    metadata.twitter.images = [generateBlogOG(post.title, post.date)];
+  }
+
+  return metadata;
 }
 
 export default async function BlogPostPage({
@@ -46,7 +64,7 @@ export default async function BlogPostPage({
     datePublished: post.date,
     dateModified: post.date,
     keywords: post.tags.join(", "),
-    image: `${SITE_URL}${OG_IMAGE}`,
+    image: generateBlogOG(post.title, post.date),
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `${SITE_URL}/blog/${post.slug}`,

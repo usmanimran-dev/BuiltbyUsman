@@ -4,7 +4,8 @@ import { Navbar } from "@/components/sections/navbar";
 import { Footer } from "@/components/sections/footer";
 import { ServicePageView } from "@/components/sections/service-page";
 import { getAllServices, getServiceBySlug } from "@/lib/services";
-import { OG_IMAGE, SITE_URL, pageMetadata } from "@/lib/seo";
+import { SITE_URL, pageMetadata } from "@/lib/seo";
+import { generateServiceOG } from "@/lib/og-images";
 
 export async function generateStaticParams() {
   return getAllServices().map((service) => ({ slug: service.slug }));
@@ -19,12 +20,29 @@ export async function generateMetadata({
   const service = getServiceBySlug(slug);
   if (!service) return {};
 
-  return pageMetadata({
+  const metadata = pageMetadata({
     title: service.metaTitle,
     description: service.metaDescription,
     path: `/ai/${service.slug}`,
     imageAlt: service.heading,
   });
+
+  // Override with service-specific OG image
+  if (metadata.openGraph) {
+    metadata.openGraph.images = [
+      {
+        url: generateServiceOG(service.title),
+        width: 1200,
+        height: 630,
+        alt: service.heading,
+      },
+    ];
+  }
+  if (metadata.twitter) {
+    metadata.twitter.images = [generateServiceOG(service.title)];
+  }
+
+  return metadata;
 }
 
 export default async function ServicePage({
@@ -43,7 +61,7 @@ export default async function ServicePage({
     description: service.metaDescription,
     serviceType: service.title,
     url: `${SITE_URL}/ai/${service.slug}`,
-    image: `${SITE_URL}${OG_IMAGE}`,
+    image: generateServiceOG(service.title),
     provider: { "@id": `${SITE_URL}/#organization` },
     areaServed: "Worldwide",
   };
