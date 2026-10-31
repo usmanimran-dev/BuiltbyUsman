@@ -35,3 +35,11 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 # BuiltbyUsman
+
+## Google AdSense
+
+The AdSense script and `/ads.txt` use the site's Google publisher ID. After deployment, add `builtbyusman.com` under **Sites** in AdSense and request a review.
+
+After deployment, confirm that `https://builtbyusman.com/ads.txt` displays the expected Google seller line. Approval is handled by Google. Once approved, enable Auto ads in the AdSense site settings if you want Google to place ads automatically.
+
+The site includes a privacy policy at `/privacy` and allows Google's ad resources through the Content Security Policy when the script is enabled. Keep the policy aligned with the services and data practices actually used on the site.

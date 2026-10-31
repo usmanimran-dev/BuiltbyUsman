@@ -19,6 +19,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 const title = "Usman Imran — Full Stack Developer | Fintech, Logistics & AI Systems";
+const ADSENSE_CLIENT_ID = "ca-pub-7920759097764303";
 const description =
   "I build production systems for banking workflows, logistics platforms, and AI-powered tools. Based in Karachi. Available for projects.";
 
@@ -157,6 +158,15 @@ export default function RootLayout({
       className={`${geist.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
       <head>
+        <meta name="google-adsense-account" content={ADSENSE_CLIENT_ID} />
+        <Script
+          id="google-adsense"
+          async
+          crossOrigin="anonymous"
+          data-ad-client={ADSENSE_CLIENT_ID}
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
+          strategy="beforeInteractive"
+        />
         <link
           rel="preconnect"
           href="https://fwfiauyxxewmjyihkvql.supabase.co"

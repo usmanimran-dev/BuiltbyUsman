@@ -111,6 +111,12 @@ export function Footer() {
           <p className="text-xs text-zinc-500">
             © {new Date().getFullYear()} Usman Imran
           </p>
+          <a
+            href="/privacy"
+            className="text-xs text-zinc-500 transition-colors hover:text-white"
+          >
+            Privacy policy
+          </a>
         </div>
       </div>
     </footer>

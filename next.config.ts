@@ -17,12 +17,12 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://app.cal.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://app.cal.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net",
       "style-src 'self' 'unsafe-inline'",
       "font-src 'self'",
-      "img-src 'self' data: https://*.supabase.co https://app.cal.com",
-      "connect-src 'self' https://*.supabase.co https://app.cal.com",
-      "frame-src https://app.cal.com",
+      "img-src 'self' data: https://*.supabase.co https://app.cal.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com",
+      "connect-src 'self' https://*.supabase.co https://app.cal.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com",
+      "frame-src https://app.cal.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com",
     ].join("; "),
   },
 ];
